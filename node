@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #  start   use mongod to start slave, wait 1min and report
+#  use     login shell command format.
 #  stop    use kill to stop node, wait until stopped
 #  status  test pid file
 #  cz 2014-06-13
