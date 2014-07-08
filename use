@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+BASEDIR=
+NODEDIR=`dirname $0`
+echo "$NODEDIR" | grep -q '^/' || NODEDIR="`pwd`/$NODEDIR"
+NODERC="$NODEDIR/noderc"
+PIDFILE="$NODEDIR/data/mongod.lock"
+OPTION_FILE="$NODEDIR/my.node.conf"
+
+if [ -f "$NODERC" ]
+then
+    . "$NODERC"
+fi
+
+if [ "$BASEDIR"x = "x" ]
+then
+    echo "empty BASEDIR! exit.."
+    exit 1
+fi
+
+MONGO=$BASEDIR/bin/mongo
+PORT=`cat $OPTION_FILE | sed -n -e '/^port/s/^port = //p' | sed 's/#.*//g'`
+
+PID=`cat "$PIDFILE"`
+if [ ! "$PID"x = "x" ]
+   then
+      exec "$MONGO" --port=$PORT "$@"
+else
+   echo 'has no mongodb pid..'
+   exit 1
+fi

@@ -1,0 +1,5 @@
+## defines BASEDIR required
+BASEDIR=/opt/mongodb-linux-x86_64-2.4.10
+
+# turn on debug log
+# DEBUG_NODE=1
